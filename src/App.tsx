@@ -1,26 +1,61 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Switch, Route, Redirect } from 'react-router-dom';
+// react-redux连接器
+import { connect } from 'react-redux';
+import renderRoutes from '@router/renderRoutes';
+// 路由数据
+import { routes } from './router/routes';
+// 404页面
+import NotFound from '@views/not-found/NotFound';
+import { reduxState, reduxDispatch } from '@store/reducer';
+import { Props } from '@/type/index';
 
-function App() {
+function App(props: Props): React.ReactElement {
+  React.store = props;
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Switch>
+      <Route render={({ location }: Props) => (
+        location?.state && location?.state.is404
+          ? <NotFound />
+          : <Accessible />
+      )} />
+    </Switch>
   );
 }
 
-export default App;
+// 重定向到404
+const RedirectAs404 = ({ location }: Props) => <Redirect to={{ ...location, state: { is404: true } }} />;
+
+// 可访问路由以及兜底404
+function Accessible() {
+  return (
+    <Switch>
+      {
+        renderRoutes(routes)
+      }
+      <Route component={RedirectAs404} />
+    </Switch>
+  );
+}
+
+// redux数据挂载到props上
+const mapStateToProps = (state: reduxState) => {
+  return {
+    msg: state.msg
+  };
+};
+const mapDispatchToProps = (dispatch: reduxDispatch) => {
+  return {
+    // 设置msg方法
+    setMsg() {
+      const action = {
+        type: 'MSG',
+        msg: '新消息'
+      };
+      dispatch(action);
+    }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
