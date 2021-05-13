@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React from 'react';
 import { Route } from 'react-router-dom';
 import asyncComponent from './asyncComponent';
@@ -21,8 +20,7 @@ function renderRoutes(routes: Routes) {
           exact={item.meta && item.meta.exact}
           render={(props: Props) => {
             const LoadableComponent = asyncComponent(() => import(`@/${item.component}`));
-            console.log(LoadableComponent);
-            return <LoadableComponent {...props} />
+            return <LoadableComponent {...props} />;
           }}
         />
       );
