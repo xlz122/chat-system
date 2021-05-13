@@ -20,7 +20,7 @@ function renderRoutes(routes: Routes) {
           exact={item.meta && item.meta.exact}
           render={(props: Props) => {
             const LoadableComponent = asyncComponent(() => import(`@/${item.component}`));
-            return <LoadableComponent {...props} />
+            return <LoadableComponent {...props} />;
           }}
         />
       );

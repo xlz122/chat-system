@@ -32,7 +32,10 @@ export default function asyncComponent(importComponent) {
 
     render() {
       const C = this.state.component;
+<<<<<<< HEAD
       console.log(C);
+=======
+>>>>>>> eslint
       return C ? <C {...this.props} /> : null;
     }
   }
