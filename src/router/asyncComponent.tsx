@@ -1,3 +1,11 @@
+/*
+ * @Descripttion: 
+ * @version: 
+ * @Author: Qyc
+ * @Date: 2021-05-12 17:08:23
+ * @LastEditors: Qyc
+ * @LastEditTime: 2021-05-13 11:23:00
+ */
 // @ts-nocheck
 import React, { Component } from "react";
 
@@ -31,7 +39,7 @@ export default function asyncComponent(importComponent) {
 
     render() {
       const C = this.state.component;
-      return C ? <C {...this.props} /> : null;
+      return C && <C {...this.props} />;
     }
   }
 
