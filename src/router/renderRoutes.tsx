@@ -12,7 +12,6 @@ import { Props } from '@/type/index';
 function renderRoutes(routes: Routes) {
   // 套路由转成一维数组
   const routeList = getAllRoute(routes);
-  console.log(routeList)
   return (
     routeList.map((item: Routes) => {
       return (
@@ -22,8 +21,8 @@ function renderRoutes(routes: Routes) {
           exact={item.meta && item.meta.exact}
           render={(props: Props) => {
             const LoadableComponent = asyncComponent(() => import(`@/${item.component}`));
+            console.log(LoadableComponent);
             return <LoadableComponent {...props} />
-            // return <NotFound />
           }}
         />
       );
