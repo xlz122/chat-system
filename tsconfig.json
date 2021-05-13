@@ -9,8 +9,6 @@
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
-    // 将import * as React from 'react';
-    // 设置为熟悉的import React from 'react';
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
@@ -29,7 +27,6 @@
       "@assets/*": ["src/assets/*"],
       "@router/*": ["src/router/*"],
       "@store/*": ["src/store/*"],
-      "@type/*": ["src/type/*"],
       "@utils/*": ["src/utils/*"],
       "@views/*": ["src/views/*"],
     },

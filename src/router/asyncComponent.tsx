@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
 export default function asyncComponent(importComponent) {
   class AsyncComponent extends Component {
@@ -11,26 +11,28 @@ export default function asyncComponent(importComponent) {
     }
 
     async componentDidMount() {
-      if(this.hasLoadedComponent()){
+      if (this.hasLoadedComponent()) {
         return;
       }
       const { default: component } = await importComponent();
       this.setState({
-        component: component
+        component
       });
+    }
+
+    componentWillUnmount() {
+      this.setState = () => {
+        return false;
+      };
     }
 
     hasLoadedComponent() {
       return this.state.component !== null;
     }
-    componentWillUnmount(){
-      this.setState = (state,callback)=>{
-        return
-      }
-    }
 
     render() {
       const C = this.state.component;
+      console.log(C);
       return C ? <C {...this.props} /> : null;
     }
   }

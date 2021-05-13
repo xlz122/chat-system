@@ -5,7 +5,7 @@ import { Routes } from '@router/routes';
 import { Props } from '@/type/index';
 
 /**
- * @desc renderRoutes 渲染路由
+ * @description renderRoutes 渲染路由
  * @param { Array } routes 路由列表
  */
 function renderRoutes(routes: Routes) {
