@@ -6,8 +6,6 @@ export type Routes = {
   component?: string;
   children?: {
     path?: string;
-    title?: string;
-    icon?: string;
     component?: string;
   }[],
   [index: string]: any;
@@ -31,13 +29,9 @@ const routes: Routes[] = [
   }
   // {
   //   path: '/base',
-  //   title: '数据统计',
-  //   icon: '',
   //   children: [
   //     {
   //       path: '/base',
-  //       title: '基础数据统计',
-  //       icon: '',
   //       component: 'views/base/index'
   //     }
   //   ]

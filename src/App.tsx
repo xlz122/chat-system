@@ -12,22 +12,23 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import renderRoutes from '@router/renderRoutes';
 // 路由数据
-import { routes } from './router/routes';
+import { routes } from '@router/routes';
 // 404页面
 import NotFound from '@views/not-found/NotFound';
-import { reduxState, reduxDispatch } from '@store/reducer';
+import { ReduxState, ReduxDispatch } from '@store/reducer';
 import { Props } from '@/type/index';
 
 function App(props: Props): React.ReactElement {
+  // redux数据通过react全局使用
   React.store = props;
-  
   return (
     <Switch>
       <Route render={({ location }: Props) => (
         location?.state && location?.state.is404
           ? <NotFound />
           : <Accessible />
-      )} />
+      )}
+      />
     </Switch>
   );
 }
@@ -48,12 +49,12 @@ function Accessible() {
 }
 
 // redux数据挂载到props上
-const mapStateToProps = (state: reduxState) => {
+const mapStateToProps = (state: ReduxState) => {
   return {
     msg: state.msg
   };
 };
-const mapDispatchToProps = (dispatch: reduxDispatch) => {
+const mapDispatchToProps = (dispatch: ReduxDispatch) => {
   return {
     // 设置msg方法
     setMsg() {

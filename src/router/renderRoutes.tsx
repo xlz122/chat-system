@@ -5,7 +5,7 @@ import { Routes } from '@router/routes';
 import { Props } from '@/type/index';
 
 /**
- * @desc renderRoutes 渲染路由
+ * @description renderRoutes 渲染路由
  * @param { Array } routes 路由列表
  */
 function renderRoutes(routes: Routes) {
@@ -20,7 +20,7 @@ function renderRoutes(routes: Routes) {
           exact={item.meta && item.meta.exact}
           render={(props: Props) => {
             const LoadableComponent = asyncComponent(() => import(`@/${item.component}`));
-            return <LoadableComponent {...props} />
+            return <LoadableComponent {...props} />;
           }}
         />
       );
