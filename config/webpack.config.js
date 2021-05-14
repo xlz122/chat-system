@@ -342,7 +342,6 @@ module.exports = function (webpackEnv) {
         '@assets': path.resolve(__dirname, '../src/assets'),
         '@router': path.resolve(__dirname, '../src/router'),
         '@store': path.resolve(__dirname, '../src/store'),
-        '@type': path.resolve(__dirname, '../src/type'),
         '@utils': path.resolve(__dirname, '../src/utils'),
         '@views': path.resolve(__dirname, '../src/views'),
         ...(modules.webpackAliases || {}),

@@ -7,8 +7,9 @@ import reducer from './reducer';
 
 // createStore中只能放两个参数
 // 为了react浏览器扩展插件和redux-thunk一起使用，修改如下，使用compose增强函数
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
-      window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({}) : compose;
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+  ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
+  : compose;
 
 const enhancer = composeEnhancers(applyMiddleware(thunk));
 
