@@ -4,9 +4,9 @@
  * @Author: Qyc
  * @Date: 2021-05-12 17:08:23
  * @LastEditors: Qyc
- * @LastEditTime: 2021-05-13 09:26:40
+ * @LastEditTime: 2021-05-14 11:21:33
  */
-import React from "react";
+import React from 'react';
 
 function Login(): React.ReactElement {
   return <div className="login">login</div>;

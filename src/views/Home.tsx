@@ -6,7 +6,7 @@
  * @LastEditors: Qyc
  * @LastEditTime: 2021-05-14 11:04:02
  */
-import React from "react";
+import React from 'react';
 
 function Home(): React.ReactElement {
   return (
