@@ -1,5 +1,14 @@
-body {
+* {
+  padding: 0;
   margin: 0;
+}
+
+body {
+  min-width: 960px;
+  margin: 0 auto;
+  font-size: 12px;
+  line-height: normal;
+  overflow-x: auto;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -7,7 +16,40 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+/* 解决页面滚动条导致的页面跳动问题 */
+:root {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+:root #chat-system {
+  position: absolute;
+}
+
+#chat-system {
+  width: 100vw;
+  overflow: hidden;
+}
+
+@media screen and (max-width: 960px) {
+  :root {
+    overflow-y: auto;
+    overflow-x: auto;
+  }
+
+  #chat-system {
+    width: 100vw;
+    min-width: 960px;
+    overflow-x: auto;
+    overflow-y: auto;
+  }
+}
+
+ul li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  cursor: pointer;
 }
