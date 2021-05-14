@@ -2,9 +2,6 @@ module.exports = {
   // root: true,
   // extends: "airbnb",
   // parser: "babel-eslint",
-  // plugins: [
-  //   "react-hooks"
-  // ],
   extends: ["react-app"],
   plugins: [
     "react-hooks"
@@ -28,13 +25,13 @@ module.exports = {
     "consistent-return": [0], // 取消return返回检查
     "jsx-a11y/label-has-associated-control": [0], // 取消label检查
     "class-methods-use-this": [0], // 取消类方法没有使用this检查
-    "global-require": [2], // 要求 require() 出现在顶层模块作用域中
+    "no-use-before-define": [0, { "functions": false, "classes": true, "variables": true }], // 禁止在变量定义之前使用它们 variables(变量)
     "no-unused-vars": [0, { "vars": "all", "args": "after-used" }], // 禁止出现未使用过的变量， vars (all 检查全部变量) args（after-used 只检查最后一个函数参数）
+    "global-require": [2], // 要求 require() 出现在顶层模块作用域中
     "no-var": 2, // 禁用var，用let和const代替
     "quotes": [2, "single"], // 开启强制单引号
     "eqeqeq": 2, // 强制全等( === 和 !==)
     "semi": [2, "always"],// 语句强制分号结尾
-    "no-use-before-define": [0, { "functions": false, "classes": true, "variables": true }], // 禁止在变量定义之前使用它们 variables(变量)
     "arrow-parens": [2, "as-needed"], // 箭头函数参数括号，一个参数时可省略括号
     "arrow-spacing": [2, { before: true, after: true }], // 箭头函数，箭头前后空格
     "comma-dangle": [2, "never"], // 禁止对象最后一项逗号

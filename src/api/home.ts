@@ -1,21 +1,25 @@
 import axios from '@utils/axios';
 
 /**
- * @description 登录
+ * @description get
 */
-export const Login = () => {
+export const Login = ({ username, password }: { username: string, password: string }) => {
+  const params = { username, password };
   return axios.request({
     url: '/api',
-    methods: 'get'
+    methods: 'get',
+    params
   });
 };
 
 /**
- * @description 获取列表数据
+ * @description post
 */
-export const getList = () => {
+export const getList = ({ page, size }: { page: number, size: number }) => {
+  const data = { page, size };
   return axios.request({
     url: '/api',
-    methods: 'get'
+    methods: 'post',
+    data
   });
 };
