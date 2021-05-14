@@ -1,10 +1,11 @@
 import React from 'react';
+import LoginForm from './LoginForm';
 import './login.scss';
 
 function Login(): React.ReactElement {
   return (
     <div className="login">
-      login
+      <LoginForm />
     </div>
   );
 }
