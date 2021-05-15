@@ -7,9 +7,15 @@
  * @LastEditTime: 2021-05-14 11:21:33
  */
 import React from 'react';
+import LoginForm from './LoginForm';
+import './login.scss';
 
 function Login(): React.ReactElement {
-  return <div className="login">login</div>;
+  return (
+    <div className="login">
+      <LoginForm />
+    </div>
+  );
 }
 
 export default Login;
