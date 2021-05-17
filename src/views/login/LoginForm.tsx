@@ -22,6 +22,8 @@ type IProps = Props & {
   githubSubmit?: () => void;
   giteeSubmit?: () => void;
   baiduSubmit?: () => void;
+  oschinaSubmit?: () => void;
+  codingSubmit?: () => void;
 }
 
 function LoginForm(props: IProps): React.ReactElement {
@@ -114,6 +116,7 @@ function LoginForm(props: IProps): React.ReactElement {
           <img
             className="auth-item-img"
             src={openSourceChinaIcon}
+            onClick={props.oschinaSubmit}
             alt="开源中国登录"
           />
         </li>
@@ -121,6 +124,7 @@ function LoginForm(props: IProps): React.ReactElement {
           <img
             className="auth-item-img"
             src={tencentCloudIcon}
+            onClick={props.codingSubmit}
             alt="腾讯云登录"
           />
         </li>

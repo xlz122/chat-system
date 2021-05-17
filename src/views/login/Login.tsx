@@ -99,6 +99,16 @@ function Login(): React.ReactElement {
     authorize('baidu');
   };
 
+  // 开源中国登录
+  const oschinaSubmit = (): void => {
+    authorize('oschina');
+  };
+
+  // 腾讯云登录
+  const codingSubmit = (): void => {
+    authorize('coding');
+  };
+
   // 授权方法
   const authorize = (type: string): void => {
     getAuthorize({
@@ -132,6 +142,8 @@ function Login(): React.ReactElement {
         githubSubmit={githubSubmit}
         giteeSubmit={giteeSubmit}
         baiduSubmit={baiduSubmit}
+        oschinaSubmit={oschinaSubmit}
+        codingSubmit={codingSubmit}
       />
     </div>
   );
