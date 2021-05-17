@@ -27,3 +27,17 @@ export const userLogin = ({ username, password }: { username: string, password: 
     data
   });
 };
+
+/**
+ * @description 获取第三方登录授权地址
+ * @param { String } username 用户名
+*/
+export const getAuthorize = ({ platform }: { platform: string }) => {
+  const params = { platform };
+
+  return axios.request({
+    url: '/user/getAuthorize',
+    method: 'get',
+    params
+  });
+};

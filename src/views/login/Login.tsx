@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import LoginForm from './LoginForm';
 import { InputChange, Response } from '@/type/index';
-import { getUserAvatarSrc, userLogin } from '@api/login';
+import { getUserAvatarSrc, userLogin, getAuthorize } from '@api/login';
 import './login.scss';
 
 export type FormData = {
@@ -49,7 +49,8 @@ function Login(): React.ReactElement {
       username: formData.username
     }).then((res: Response) => {
       if (res.code === 0) {
-        setAvatar(res.data as string);
+        const src = res.data as unknown;
+        setAvatar(src as string);
       }
       // 用户不存在
       if (res.code === -4) {
@@ -74,6 +75,10 @@ function Login(): React.ReactElement {
       if (res.code === -3) {
         alert(res.msg);
       }
+      // 用户不存在
+      if (res.code === -4) {
+        alert(res.msg);
+      }
     }).catch(err => {
       console.log(err);
     });
@@ -81,17 +86,37 @@ function Login(): React.ReactElement {
 
   // github登录
   const githubSubmit = (): void => {
-    console.log('github登录');
+    authorize('github');
   };
 
   // gitee登录
   const giteeSubmit = (): void => {
-    console.log('gitee登录');
+    authorize('gitee');
   };
 
   // 百度登录
   const baiduSubmit = (): void => {
-    console.log('百度登录');
+    authorize('baidu');
+  };
+
+  // 授权方法
+  const authorize = (type: string): void => {
+    getAuthorize({
+      platform: type
+    }).then((res: Response) => {
+      if (res.code === 0) {
+        window.open(
+          (res.data as any).authorizeUrl,
+          '_blank',
+          'top=300,left=300,width=800,height=500,menubar=no,toolbar=no,status=no,scrollbars=yes'
+        );
+      }
+      if (res.code !== 0) {
+        alert(res.msg);
+      }
+    }).catch(err => {
+      console.log(err);
+    });
   };
 
   return (
