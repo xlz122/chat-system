@@ -77,7 +77,7 @@ class HttpRequest {
 }
 
 const Axios = new HttpRequest({
-  // baseURL: '/api'
+  baseURL: '/api'
 });
 
 export default Axios;

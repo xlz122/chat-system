@@ -7,7 +7,7 @@ export const Login = ({ username, password }: { username: string, password: stri
   const params = { username, password };
   return axios.request({
     url: '/api',
-    methods: 'get',
+    method: 'get',
     params
   });
 };
@@ -19,7 +19,7 @@ export const getList = ({ page, size }: { page: number, size: number }) => {
   const data = { page, size };
   return axios.request({
     url: '/api',
-    methods: 'post',
+    method: 'post',
     data
   });
 };

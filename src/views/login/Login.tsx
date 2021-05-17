@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import LoginForm from './LoginForm';
-import { InputChange } from '@/type/index';
+import { InputChange, Response } from '@/type/index';
+import { getUserAvatarSrc, userLogin } from '@api/login';
 import './login.scss';
 
 export type FormData = {
@@ -41,11 +42,41 @@ function Login(): React.ReactElement {
     setTesting(true);
   };
 
+  // 用户名失去焦点，获取头像
+  const [avatar, setAvatar] = useState('');
+  const usernameBlur: InputChange = () => {
+    getUserAvatarSrc({
+      username: formData.username
+    }).then((res: Response) => {
+      if (res.code === 0) {
+        setAvatar(res.data as string);
+      }
+      // 用户不存在
+      if (res.code === -4) {
+        setAvatar('');
+      }
+    }).catch(err => {
+      console.log(err);
+    });
+  };
+
   // 登录
   const history = useHistory();
   const submit = (): void => {
-    console.log(formData);
-    history.push('/');
+    userLogin({
+      username: formData.username,
+      password: formData.password
+    }).then((res: Response) => {
+      if (res.code === 0) {
+        history.push('/');
+      }
+      // 在其他设备已登录
+      if (res.code === -3) {
+        alert(res.msg);
+      }
+    }).catch(err => {
+      console.log(err);
+    });
   };
 
   // github登录
@@ -66,9 +97,11 @@ function Login(): React.ReactElement {
   return (
     <div className="login">
       <LoginForm
+        avatar={avatar}
         formData={formData}
         testing={testing}
         usernameChange={usernameChange}
+        usernameBlur={usernameBlur}
         passwordChange={passwordChange}
         submit={submit}
         githubSubmit={githubSubmit}

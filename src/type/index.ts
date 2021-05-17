@@ -5,3 +5,9 @@ export type Props = {
 };
 
 export type InputChange = React.ChangeEventHandler<HTMLInputElement>;
+
+export type Response = {
+  code?: number;
+  data?: unknown | Record<string, any>;
+  msg?: string;
+};

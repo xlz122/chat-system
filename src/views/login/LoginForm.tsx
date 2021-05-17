@@ -16,6 +16,7 @@ type IProps = Props & {
   testing: boolean;
   avatar?: string;
   usernameChange: InputChange;
+  usernameBlur: InputChange;
   passwordChange: InputChange;
   submit: () => void;
   githubSubmit?: () => void;
@@ -51,6 +52,7 @@ function LoginForm(props: IProps): React.ReactElement {
             type="text"
             value={props.formData.username}
             onChange={props.usernameChange}
+            onBlur={props.usernameBlur}
             placeholder="输入用户名"
           />
         </div>

@@ -103,7 +103,7 @@ module.exports = function (proxy, allowedHost) {
     // `proxy` is run between `before` and `after` `webpack-dev-server` hooks
     proxy: {
 			'/api': {
-        target: 'http://localhost:9000',
+        target: 'https://www.kaisir.cn/api',
         ws: true,
         changeOrigin: true,
         pathRewrite: { '^/api': '/' }
