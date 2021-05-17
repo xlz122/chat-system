@@ -1,0 +1,62 @@
+// 嵌套路由使用
+// 目前只支持一层嵌套
+// 嵌套路由会复用父组件路径
+const routes: Routes[] = [
+  {
+    path: '/',
+    meta: {
+      exact: true
+    },
+    component: 'views/Home',
+    children: [
+      {
+        path: '/foo',
+        meta: {
+          exact: true
+        }
+      },
+      {
+        path: '/foo/bar'
+      }
+    ]
+  },
+]
+
+// 嵌套路由路径会自动拼接父path
+// 生成如下路由：
+  // path: '/'
+  // path: '/foo'
+  // path: '/foo/bar'
+
+// 重复路由无效
+const routes: Routes[] = [
+  {
+    path: '/',
+    meta: {
+      exact: true
+    },
+    component: 'views/Home',
+    children: [
+      {
+        path: '/foo',
+        meta: {
+          exact: true
+        }
+      }
+    ]
+  },
+  // 该路由失效，在该路由之前，嵌套路径相同，先定义的生效
+  |———————————————————|
+  |{                  |
+  |  path: '/foo',    |
+  |  meta: {          |
+  |    exact: true    |
+  |  }                |
+  |}                  |
+  |———————————————————|
+]
+
+// 后定义的重复路由无效
+// 生成如下路由：
+  // path: '/'
+  // path: '/foo'
