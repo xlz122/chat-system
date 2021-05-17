@@ -51,7 +51,7 @@ export function getAllRoute(routes: Routes): Array<Routes> {
       routeList.push(item);
     }
   });
-  
+  console.log(routeList);
   return routeList;
 }
 
@@ -66,14 +66,12 @@ function handlerNestRoute(item: Routes) {
     throw new Error('路由path为空或未定义');
   }
 
-  // 根路由单独处理
-  if (item.path === '/') {
-    result.push({
-      ...item,
-      path: `${item.path}`,
-      component: item.component
-    });
-  }
+  // 父路由单独处理
+  result.push({
+    ...item,
+    path: `${item.path}`,
+    component: item.component
+  });
 
   item.children && item.children.forEach((i: Children) => {
     if (!i.path) {
