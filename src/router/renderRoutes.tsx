@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 import asyncComponent from './asyncComponent';
-import { Routes } from '@router/routes';
+import { Routes, Children } from '@router/routes';
 import { Props } from '@/type/index';
 
 /**
@@ -29,32 +29,97 @@ function renderRoutes(routes: Routes) {
 }
 
 /**
- * @description 嵌套路由转成一维数组
+ * @description 路由数组转成一维数组
  * @param { Array } routes 路由列表
  * @return { Array } routesList 转成一维的路由数组
  */
- export function getAllRoute(routes: Routes): Array<Routes> {
+export function getAllRoute(routes: Routes): Array<Routes> {
   const routeList: Routes[] = [];
   // routes不是数组直接返回
   if (Object.prototype.toString.call(routes) !== '[object Array]') {
     return routeList;
   }
-  // 递归路由列表
-  function recursiveRoutes(list: Routes) {
-    list.forEach((item: Routes) => {
-      if (
-        Object.prototype.toString.call(item.children) === '[object Array]' &&
-        item.children &&
-        item.children.length > 0
-      ) {
-        recursiveRoutes(item.children);
-      } else {
-        routeList.push(item);
-      }
-    });
-  }
-  recursiveRoutes(routes);
+
+  routes.forEach((item: Routes) => {
+    if (
+      item.children &&
+      item.children.length > 0
+    ) {
+      const result = handlerNestRoute(item);
+      routeList.push(...result);
+    } else {
+      routeList.push(item);
+    }
+  });
+  console.log(routeList);
   return routeList;
+}
+
+/**
+ * @description 处理嵌套路由
+ * @param { Array } item 包含嵌套路由的路由数组项
+ */
+function handlerNestRoute(item: Routes) {
+  const result = [];
+
+  if (!item.path) {
+    throw new Error('路由path为空或未定义');
+  }
+
+  // 父路由单独处理
+  result.push({
+    ...item,
+    path: `${item.path}`,
+    component: item.component
+  });
+
+  item.children && item.children.forEach((i: Children) => {
+    if (!i.path) {
+      throw new Error('嵌套路由path为空或未定义');
+    }
+
+    // 根路由处理
+    if (item.path === '/') {
+      // 嵌套路由以 / 开头
+      if (i.path.match(/^\/\.*/)) {
+        result.push({
+          ...i,
+          path: `${i.path}`,
+          component: item.component
+        });
+      }
+      // 嵌套路由不以 / 开头
+      if (!i.path.match(/^\/\.*/)) {
+        result.push({
+          ...i,
+          path: `${item.path}${i.path}`,
+          component: item.component
+        });
+      }
+    }
+
+    // 其余路由
+    if (item.path !== '/') {
+      // 嵌套路由以 / 开头
+      if (i.path.match(/^\/\.*/)) {
+        result.push({
+          ...i,
+          path: `${item.path}${i.path}`,
+          component: item.component
+        });
+      }
+      // 嵌套路由不以 / 开头
+      if (!i.path.match(/^\/\.*/)) {
+        result.push({
+          ...i,
+          path: `${item.path}/${i.path}`,
+          component: item.component
+        });
+      }
+    }
+  });
+
+  return result;
 }
 
 export default renderRoutes;
