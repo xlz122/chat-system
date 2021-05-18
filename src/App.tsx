@@ -37,7 +37,7 @@ function App(props: Props): React.ReactElement {
 const RedirectAs404 = ({ location }: Props) => <Redirect to={{ ...location, state: { is404: true } }} />;
 
 // 可访问路由以及兜底404
-function Accessible() {
+function Accessible(): React.ReactElement {
   return (
     <Switch>
       {

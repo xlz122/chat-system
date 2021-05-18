@@ -16,11 +16,14 @@ type IProps = Props & {
   testing: boolean;
   avatar?: string;
   usernameChange: InputChange;
+  usernameBlur: InputChange;
   passwordChange: InputChange;
   submit: () => void;
   githubSubmit?: () => void;
   giteeSubmit?: () => void;
   baiduSubmit?: () => void;
+  oschinaSubmit?: () => void;
+  codingSubmit?: () => void;
 }
 
 function LoginForm(props: IProps): React.ReactElement {
@@ -51,6 +54,7 @@ function LoginForm(props: IProps): React.ReactElement {
             type="text"
             value={props.formData.username}
             onChange={props.usernameChange}
+            onBlur={props.usernameBlur}
             placeholder="输入用户名"
           />
         </div>
@@ -112,6 +116,7 @@ function LoginForm(props: IProps): React.ReactElement {
           <img
             className="auth-item-img"
             src={openSourceChinaIcon}
+            onClick={props.oschinaSubmit}
             alt="开源中国登录"
           />
         </li>
@@ -119,6 +124,7 @@ function LoginForm(props: IProps): React.ReactElement {
           <img
             className="auth-item-img"
             src={tencentCloudIcon}
+            onClick={props.codingSubmit}
             alt="腾讯云登录"
           />
         </li>

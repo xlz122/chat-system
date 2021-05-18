@@ -8,7 +8,7 @@ import { Props } from '@/type/index';
  * @description renderRoutes 渲染路由
  * @param { Array } routes 路由列表
  */
-function renderRoutes(routes: Routes) {
+function renderRoutes(routes: Routes): React.ReactElement[] {
   // 套路由转成一维数组
   const routeList = getAllRoute(routes);
   return (
@@ -51,7 +51,7 @@ export function getAllRoute(routes: Routes): Array<Routes> {
       routeList.push(item);
     }
   });
-  console.log(routeList);
+  
   return routeList;
 }
 
@@ -59,7 +59,7 @@ export function getAllRoute(routes: Routes): Array<Routes> {
  * @description 处理嵌套路由
  * @param { Array } item 包含嵌套路由的路由数组项
  */
-function handlerNestRoute(item: Routes) {
+function handlerNestRoute(item: Routes): Array<Routes> {
   const result = [];
 
   if (!item.path) {

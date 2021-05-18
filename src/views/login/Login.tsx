@@ -4,7 +4,15 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import LoginForm from './LoginForm';
-import { InputChange } from '@/type/index';
+import { InputChange, Response } from '@/type/index';
+import {
+  getUserAvatarSrc,
+  userLogin,
+  getAuthorize,
+  authorizeLogin,
+  AuthorizeLogin
+} from '@api/login';
+import useCallbackState from '@utils/useCallbackState';
 import './login.scss';
 
 export type FormData = {
@@ -44,39 +52,108 @@ function Login(): React.ReactElement {
     setTesting(true);
   };
 
+  // 用户名失去焦点，获取头像
+  const [avatar, setAvatar] = useState('');
+  const usernameBlur: InputChange = (): boolean |undefined => {
+    if (!formData.username) {
+      return false;
+    }
+
+    getUserAvatarSrc({
+      username: formData.username
+    }).then((res: Response) => {
+      if (res.code === 0) {
+        const src = res.data as unknown;
+        setAvatar(src as string);
+      }
+      if (res.code !== 0) {
+        alert(res.msg);
+      }
+    }).catch(err => {
+      console.log(err);
+    });
+  };
+
   // 登录
   const history = useHistory();
   const submit = (): void => {
-    console.log(formData);
-    history.push('/');
+    userLogin({
+      username: formData.username,
+      password: formData.password
+    }).then((res: Response) => {
+      if (res.code === 0) {
+        history.push('/');
+      }
+      if (res.code !== 0) {
+        alert(res.msg);
+      }
+    }).catch(err => {
+      console.log(err);
+    });
   };
 
   // github登录
   const githubSubmit = (): void => {
-    console.log('github登录');
+    authorize('github');
   };
 
   // gitee登录
   const giteeSubmit = (): void => {
-    console.log('gitee登录');
+    authorize('gitee');
   };
 
   // 百度登录
   const baiduSubmit = (): void => {
-    console.log('百度登录');
+    authorize('baidu');
+  };
+
+  // 开源中国登录
+  const oschinaSubmit = (): void => {
+    authorize('oschina');
+  };
+
+  // 腾讯云登录
+  const codingSubmit = (): void => {
+    authorize('coding');
+  };
+
+  // 授权方法
+  const authorize = (platform: string): void => {
+    getAuthorize({
+      platform
+    }).then((res: Response) => {
+      if (res.code === 0) {
+        // 打开授权
+        window.open(
+          res.data?.authorizeUrl,
+          '_blank',
+          'toolbar=no,width=800, height=600'
+        );
+        history.push('/');
+      }
+      if (res.code !== 0) {
+        alert(res.msg);
+      }
+    }).catch(err => {
+      console.log(err);
+    });
   };
 
   return (
     <div className="login">
       <LoginForm
+        avatar={avatar}
         formData={formData}
         testing={testing}
         usernameChange={usernameChange}
+        usernameBlur={usernameBlur}
         passwordChange={passwordChange}
         submit={submit}
         githubSubmit={githubSubmit}
         giteeSubmit={giteeSubmit}
         baiduSubmit={baiduSubmit}
+        oschinaSubmit={oschinaSubmit}
+        codingSubmit={codingSubmit}
       />
     </div>
   );
