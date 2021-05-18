@@ -30,6 +30,30 @@ const routes: Routes[] = [
   {
     path: '/404',
     component: 'views/not-found/NotFound'
+  },
+   {
+    path: '/commonBody',
+    component:'views/commonBody/index',
+    children: [
+      {
+        path: '/message',
+        meta: {
+          exact: true
+        }
+      },
+      {
+        path: '/more',
+        meta: {
+          exact: true
+        }
+      },
+      {
+        path: '/friendList',
+        meta: {
+          exact: true
+        }
+      }
+    ]
   }
   // {
   //   path: '/base',

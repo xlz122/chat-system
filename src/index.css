@@ -22,9 +22,9 @@ body {
   overflow-x: hidden;
 }
 
-:root #chat-system {
+/* :root #chat-system {
   position: absolute;
-}
+} */
 
 #chat-system {
   width: 100vw;
