@@ -2,7 +2,14 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import LoginForm from './LoginForm';
 import { InputChange, Response } from '@/type/index';
-import { getUserAvatarSrc, userLogin, getAuthorize } from '@api/login';
+import {
+  getUserAvatarSrc,
+  userLogin,
+  getAuthorize,
+  authorizeLogin,
+  AuthorizeLogin
+} from '@api/login';
+import useCallbackState from '@utils/useCallbackState';
 import './login.scss';
 
 export type FormData = {
@@ -44,7 +51,11 @@ function Login(): React.ReactElement {
 
   // 用户名失去焦点，获取头像
   const [avatar, setAvatar] = useState('');
-  const usernameBlur: InputChange = () => {
+  const usernameBlur: InputChange = (): boolean |undefined => {
+    if (!formData.username) {
+      return false;
+    }
+
     getUserAvatarSrc({
       username: formData.username
     }).then((res: Response) => {
@@ -52,9 +63,8 @@ function Login(): React.ReactElement {
         const src = res.data as unknown;
         setAvatar(src as string);
       }
-      // 用户不存在
-      if (res.code === -4) {
-        setAvatar('');
+      if (res.code !== 0) {
+        alert(res.msg);
       }
     }).catch(err => {
       console.log(err);
@@ -71,12 +81,7 @@ function Login(): React.ReactElement {
       if (res.code === 0) {
         history.push('/');
       }
-      // 在其他设备已登录
-      if (res.code === -3) {
-        alert(res.msg);
-      }
-      // 用户不存在
-      if (res.code === -4) {
+      if (res.code !== 0) {
         alert(res.msg);
       }
     }).catch(err => {
@@ -110,16 +115,18 @@ function Login(): React.ReactElement {
   };
 
   // 授权方法
-  const authorize = (type: string): void => {
+  const authorize = (platform: string): void => {
     getAuthorize({
-      platform: type
+      platform
     }).then((res: Response) => {
       if (res.code === 0) {
+        // 打开授权
         window.open(
-          (res.data as any).authorizeUrl,
+          res.data?.authorizeUrl,
           '_blank',
-          'top=300,left=300,width=800,height=500,menubar=no,toolbar=no,status=no,scrollbars=yes'
+          'toolbar=no,width=800, height=600'
         );
+        history.push('/');
       }
       if (res.code !== 0) {
         alert(res.msg);
