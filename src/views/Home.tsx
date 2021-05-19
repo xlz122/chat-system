@@ -17,12 +17,10 @@
 
 // export default Home;
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Route, Link } from 'react-router-dom';
-import { useDispatch, useSelector, useStore } from 'react-redux';
 
 function Bar(): React.ReactElement {
-  console.log('bar组件');
   return (
     <>
       <div className="bar">bar</div>
@@ -32,7 +30,6 @@ function Bar(): React.ReactElement {
 }
 
 function Foo(): React.ReactElement {
-  console.log('foo组件');
   return (
     <>
       <div className="foo">foo</div>
@@ -41,10 +38,9 @@ function Foo(): React.ReactElement {
 }
 
 function Home(): React.ReactElement {
-  console.log('父组件');
   return (
     <>
-      <div className="home">home</div>
+      <div className="home">测试父组件被重复加载问题</div>
       <Link to="/bar">bar</Link>
       <Route path="/bar" component={Bar} />
       <Route path="/foo" component={Foo} />
