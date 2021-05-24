@@ -39,7 +39,7 @@ const routes: Routes[] = [
     path: '/404',
     component: 'views/not-found/NotFound'
   },
-   {
+  {
     path: '/commonBody',
     component:'views/commonBody/index',
     children: [
