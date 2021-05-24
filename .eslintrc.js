@@ -39,6 +39,7 @@ module.exports = {
     "max-len": [2, { code: 120 }], // 单行代码/字符串最大长度
     "indent": [2, 2], // 缩进2个空格
     "react/jsx-indent": [2, 2], // jsx缩进2个空格
+    "eol-last": 2, // 文件末尾强制换行
     // react配置
     "react/jsx-props-no-spreading": [0], // 取消<Component {...this.props} />检查
     "react/jsx-no-bind": [0], // 取消JSX中不允许使用箭头函数和bind
