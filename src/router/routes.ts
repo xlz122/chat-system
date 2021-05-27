@@ -4,16 +4,16 @@ export type Routes = {
     exact?: boolean;
   };
   component?: string;
-  children?: Children[],
+  children?: Children[];
   [index: string]: any;
-}
+};
 
 export type Children = {
   path?: string;
   meta?: {
     exact?: boolean;
   };
-}
+};
 
 const routes: Routes[] = [
   {
@@ -41,7 +41,7 @@ const routes: Routes[] = [
   },
   {
     path: '/commonBody',
-    component:'views/commonBody/index',
+    component: 'views/commonBody/index',
     children: [
       {
         path: '/message',
@@ -74,6 +74,4 @@ const routes: Routes[] = [
   // }
 ];
 
-export {
-  routes
-};
+export { routes };

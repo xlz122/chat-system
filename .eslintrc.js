@@ -1,16 +1,10 @@
 module.exports = {
-  // root: true,
-  // extends: ["react-app"],
-  // plugins: [
-  //   "react",
-  //   "react-hooks",
-  //   "@typescript-eslint"
-  // ],
   parser: "@typescript-eslint/parser",
   plugins: [
     "react",
     "react-hooks",
-    "@typescript-eslint/eslint-plugin"
+    "@typescript-eslint/eslint-plugin",
+    "prettier"
   ],
   extends: [
     "react-app"
@@ -21,7 +15,7 @@ module.exports = {
     }
   },
   rules: {
-    // "prettier/prettier": "off"/"error" // 开启/关闭prettier
+    "prettier/prettier": "error", // "error"/"off" 开启/关闭prettier
     "no-console": process.env.NODE_ENV === 'production' ? 'error' : 'off',
     "no-debugger": process.env.NODE_ENV === 'production' ? 'error' : 'off',
     
@@ -37,7 +31,7 @@ module.exports = {
     "arrow-spacing": [2, { before: true, after: true }], // 箭头函数，箭头前后空格
     "comma-dangle": [2, "never"], // 禁止对象最后一项逗号
     "max-len": [2, { code: 120 }], // 单行代码/字符串最大长度
-    "indent": [2, 2], // 缩进2个空格
+    // "indent": [2, 2], // 缩进2个空格
     "react/jsx-indent": [2, 2], // jsx缩进2个空格
     // react配置
     "react/jsx-props-no-spreading": [0], // 取消<Component {...this.props} />检查

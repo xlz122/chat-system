@@ -54,25 +54,32 @@ class HttpRequest {
   // 拦截器设置
   interceptors(instance) {
     // 请求拦截
-    instance.interceptors.request.use(config => {
-      // 拦截重复请求(即当前正在进行的相同请求)
-      const requestData = getRequestIdentify(config, true); // 标识请求
-      removePending(requestData, true);// 取消重复请求
-      config.cancelToken = new CancelToken(c => { // 创建当前请求的取消方法
-        pending[requestData] = c;
-      });
+    instance.interceptors.request.use(
+      config => {
+        // 拦截重复请求(即当前正在进行的相同请求)
+        const requestData = getRequestIdentify(config, true); // 标识请求
+        removePending(requestData, true); // 取消重复请求
+        // 创建当前请求的取消方法
+        config.cancelToken = new CancelToken(c => {
+          pending[requestData] = c;
+        });
 
-      return Promise.resolve(config);
-    }, error => {
-      return Promise.reject(error);
-    });
+        return Promise.resolve(config);
+      },
+      error => {
+        return Promise.reject(error);
+      }
+    );
     // 响应拦截
-    instance.interceptors.response.use(res => {
-      const data = res.data;
-      return Promise.resolve(data);
-    }, error => {
-      return Promise.reject(error);
-    });
+    instance.interceptors.response.use(
+      res => {
+        const data = res.data;
+        return Promise.resolve(data);
+      },
+      error => {
+        return Promise.reject(error);
+      }
+    );
   }
 }
 

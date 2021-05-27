@@ -11,21 +11,21 @@ import { Props } from '@/type/index';
 function renderRoutes(routes: Routes): React.ReactElement[] {
   // 套路由转成一维数组
   const routeList = getAllRoute(routes);
-  return (
-    routeList.map((item: Routes) => {
-      return (
-        <Route
-          key={item.path}
-          path={item.path}
-          exact={item.meta && item.meta.exact}
-          render={(props: Props) => {
-            const LoadableComponent = asyncComponent(() => import(`@/${item.component}`));
-            return <LoadableComponent {...props} />;
-          }}
-        />
-      );
-    })
-  );
+  return routeList.map((item: Routes) => {
+    return (
+      <Route
+        key={item.path}
+        path={item.path}
+        exact={item.meta && item.meta.exact}
+        render={(props: Props) => {
+          const LoadableComponent = asyncComponent(
+            () => import(`@/${item.component}`)
+          );
+          return <LoadableComponent {...props} />;
+        }}
+      />
+    );
+  });
 }
 
 /**
@@ -41,17 +41,14 @@ export function getAllRoute(routes: Routes): Array<Routes> {
   }
 
   routes.forEach((item: Routes) => {
-    if (
-      item.children &&
-      item.children.length > 0
-    ) {
+    if (item.children && item.children.length > 0) {
       const result = handlerNestRoute(item);
       routeList.push(...result);
     } else {
       routeList.push(item);
     }
   });
-  
+
   return routeList;
 }
 
@@ -73,51 +70,52 @@ function handlerNestRoute(item: Routes): Array<Routes> {
     component: item.component
   });
 
-  item.children && item.children.forEach((i: Children) => {
-    if (!i.path) {
-      throw new Error('嵌套路由path为空或未定义');
-    }
+  item.children &&
+    item.children.forEach((i: Children) => {
+      if (!i.path) {
+        throw new Error('嵌套路由path为空或未定义');
+      }
 
-    // 根路由处理
-    if (item.path === '/') {
-      // 嵌套路由以 / 开头
-      if (i.path.match(/^\/\.*/)) {
-        result.push({
-          ...i,
-          path: `${i.path}`,
-          component: item.component
-        });
+      // 根路由处理
+      if (item.path === '/') {
+        // 嵌套路由以 / 开头
+        if (i.path.match(/^\/\.*/)) {
+          result.push({
+            ...i,
+            path: `${i.path}`,
+            component: item.component
+          });
+        }
+        // 嵌套路由不以 / 开头
+        if (!i.path.match(/^\/\.*/)) {
+          result.push({
+            ...i,
+            path: `${item.path}${i.path}`,
+            component: item.component
+          });
+        }
       }
-      // 嵌套路由不以 / 开头
-      if (!i.path.match(/^\/\.*/)) {
-        result.push({
-          ...i,
-          path: `${item.path}${i.path}`,
-          component: item.component
-        });
-      }
-    }
 
-    // 其余路由
-    if (item.path !== '/') {
-      // 嵌套路由以 / 开头
-      if (i.path.match(/^\/\.*/)) {
-        result.push({
-          ...i,
-          path: `${item.path}${i.path}`,
-          component: item.component
-        });
+      // 其余路由
+      if (item.path !== '/') {
+        // 嵌套路由以 / 开头
+        if (i.path.match(/^\/\.*/)) {
+          result.push({
+            ...i,
+            path: `${item.path}${i.path}`,
+            component: item.component
+          });
+        }
+        // 嵌套路由不以 / 开头
+        if (!i.path.match(/^\/\.*/)) {
+          result.push({
+            ...i,
+            path: `${item.path}/${i.path}`,
+            component: item.component
+          });
+        }
       }
-      // 嵌套路由不以 / 开头
-      if (!i.path.match(/^\/\.*/)) {
-        result.push({
-          ...i,
-          path: `${item.path}/${i.path}`,
-          component: item.component
-        });
-      }
-    }
-  });
+    });
 
   return result;
 }

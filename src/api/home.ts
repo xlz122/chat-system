@@ -2,8 +2,10 @@ import axios from '@utils/axios';
 
 /**
  * @description get
-*/
-export const Login = ({ username, password }: { username: string, password: string }) => {
+ */
+type LoginParam = { username: string; password: string };
+
+export const Login = ({ username, password }: LoginParam) => {
   const params = { username, password };
   return axios.request({
     url: '/api',
@@ -14,8 +16,8 @@ export const Login = ({ username, password }: { username: string, password: stri
 
 /**
  * @description post
-*/
-export const getList = ({ page, size }: { page: number, size: number }) => {
+ */
+export const getList = ({ page, size }: { page: number; size: number }) => {
   const data = { page, size };
   return axios.request({
     url: '/api',
