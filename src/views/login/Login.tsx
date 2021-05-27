@@ -1,21 +1,14 @@
-
-
-
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import LoginForm from './LoginForm';
 import { InputChange, Response } from '@/type/index';
-import {
-  getUserAvatarSrc,
-  userLogin,
-  getAuthorize
-} from '@api/login';
+import { getUserAvatarSrc, userLogin, getAuthorize } from '@api/login';
 import './login.scss';
 
 export type FormData = {
   username: string;
   password: string;
-}
+};
 
 function Login(): React.ReactElement {
   const [formData, setFormData] = useState<FormData>({
@@ -51,24 +44,26 @@ function Login(): React.ReactElement {
 
   // 用户名失去焦点，获取头像
   const [avatar, setAvatar] = useState('');
-  const usernameBlur: InputChange = (): boolean |undefined => {
+  const usernameBlur: InputChange = (): boolean | undefined => {
     if (!formData.username) {
       return false;
     }
 
     getUserAvatarSrc({
       username: formData.username
-    }).then((res: Response) => {
-      if (res.code === 0) {
-        const src = res.data as unknown;
-        setAvatar(src as string);
-      }
-      if (res.code !== 0) {
-        alert(res.msg);
-      }
-    }).catch(err => {
-      console.log(err);
-    });
+    })
+      .then((res: Response) => {
+        if (res.code === 0) {
+          const src = res.data as unknown;
+          setAvatar(src as string);
+        }
+        if (res.code !== 0) {
+          alert(res.msg);
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 
   // 登录
@@ -77,16 +72,18 @@ function Login(): React.ReactElement {
     userLogin({
       username: formData.username,
       password: formData.password
-    }).then((res: Response) => {
-      if (res.code === 0) {
-        history.push('/');
-      }
-      if (res.code !== 0) {
-        alert(res.msg);
-      }
-    }).catch(err => {
-      console.log(err);
-    });
+    })
+      .then((res: Response) => {
+        if (res.code === 0) {
+          history.push('/');
+        }
+        if (res.code !== 0) {
+          alert(res.msg);
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 
   // github登录
@@ -118,22 +115,24 @@ function Login(): React.ReactElement {
   const authorize = (platform: string): void => {
     getAuthorize({
       platform
-    }).then((res: Response) => {
-      if (res.code === 0) {
-        // 打开授权
-        window.open(
-          res.data?.authorizeUrl,
-          '_blank',
-          'toolbar=no,width=800, height=600'
-        );
-        history.push('/');
-      }
-      if (res.code !== 0) {
-        alert(res.msg);
-      }
-    }).catch(err => {
-      console.log(err);
-    });
+    })
+      .then((res: Response) => {
+        if (res.code === 0) {
+          // 打开授权
+          window.open(
+            res.data?.authorizeUrl,
+            '_blank',
+            'toolbar=no,width=800, height=600'
+          );
+          history.push('/');
+        }
+        if (res.code !== 0) {
+          alert(res.msg);
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 
   return (

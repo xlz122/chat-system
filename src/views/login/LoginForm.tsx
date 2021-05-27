@@ -24,28 +24,18 @@ type IProps = Props & {
   baiduSubmit?: () => void;
   oschinaSubmit?: () => void;
   codingSubmit?: () => void;
-}
+};
 
 function LoginForm(props: IProps): React.ReactElement {
   return (
     <div className="login-form">
       <div className="login-form-avatar">
-        {
-          !props.avatar &&
-          <img
-            className="avatar-img"
-            src={defaultAvatar}
-            alt="avatar"
-          />
-        }
-        {
-          props.avatar &&
-          <img
-            className="avatar-img"
-            src={props.avatar}
-            alt="avatar"
-          />
-        }
+        {!props.avatar && (
+          <img className="avatar-img" src={defaultAvatar} alt="avatar" />
+        )}
+        {props.avatar && (
+          <img className="avatar-img" src={props.avatar} alt="avatar" />
+        )}
       </div>
       <div className="login-form-area">
         <div className="form-area-group">
@@ -67,23 +57,17 @@ function LoginForm(props: IProps): React.ReactElement {
             placeholder="输入密码"
           />
           <div className="login-submit">
-            {
-              !props.testing &&
-              <img
-                className="login-submit-img"
-                src={defaultSubmit}
-                alt=""
-              />
-            }
-            {
-              props.testing &&
+            {!props.testing && (
+              <img className="login-submit-img" src={defaultSubmit} alt="" />
+            )}
+            {props.testing && (
               <img
                 className="login-submit-img submit-img"
                 src={submitIcon}
                 onClick={props.submit}
                 alt=""
               />
-            }
+            )}
           </div>
         </div>
       </div>

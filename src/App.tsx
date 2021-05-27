@@ -1,6 +1,6 @@
 /*
- * @Descripttion: 
- * @version: 
+ * @Descripttion:
+ * @version:
  * @Author: Qyc
  * @Date: 2021-05-12 17:08:23
  * @LastEditors: Qyc
@@ -17,9 +17,7 @@ import NotFound from '@views/not-found/NotFound';
 function App(): React.ReactElement {
   return (
     <Switch>
-      {
-        renderRoutes(routes)
-      }
+      {renderRoutes(routes)}
       <Route component={NotFound} />
     </Switch>
   );

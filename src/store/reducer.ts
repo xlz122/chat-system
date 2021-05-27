@@ -1,6 +1,6 @@
 /*
- * @Descripttion: 
- * @version: 
+ * @Descripttion:
+ * @version:
  * @Author: Qyc
  * @Date: 2021-05-12 17:08:23
  * @LastEditors: Qyc
@@ -13,12 +13,12 @@ import { cloneDeep } from 'lodash';
 export type ReduxState = {
   msg: string;
   routeName: string;
-}
+};
 
 type ReduxAction = {
   type: string;
   [index: string]: unknown;
-}
+};
 
 export type ReduxDispatch = (action: ReduxAction) => void;
 

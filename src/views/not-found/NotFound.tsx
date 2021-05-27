@@ -8,9 +8,7 @@ function NotFound(): React.ReactElement {
   setTimeout(() => {
     history.push('/');
   }, 3000);
-  return (
-    <div className="not-found">未找到该页面，将在3秒后返回首页...</div>
-  );
+  return <div className="not-found">未找到该页面，将在3秒后返回首页...</div>;
 }
 
 export default NotFound;

@@ -6,7 +6,7 @@ type CallBack<T> = (d: T) => void;
 
 /**
  * @desc setState 回调函数
-*/
+ */
 function useCallbackState<T = any>(state: T): CallBackState<T> {
   const [data, setData] = useState<T>(state);
 
@@ -16,10 +16,13 @@ function useCallbackState<T = any>(state: T): CallBackState<T> {
     cbRef.current && cbRef.current(data);
   }, [data]);
 
-  return [data, function(d: T, callback: CallBack<T>) {
-    cbRef.current = callback;
-    setData(d);
-  }];
+  return [
+    data,
+    function (d: T, callback: CallBack<T>) {
+      cbRef.current = callback;
+      setData(d);
+    }
+  ];
 }
 
 export default useCallbackState;

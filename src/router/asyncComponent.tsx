@@ -5,7 +5,7 @@ import { Props, State } from '@/type/index';
 type IState = State & {
   // component: React.ReactElement | null;
   component: any;
-}
+};
 
 type ImportComponent = () => Promise<{ default: React.ReactElement }>;
 
