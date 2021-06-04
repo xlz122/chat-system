@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { useHistory, withRouter } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import App from '@/App';
 
 function AppRouter(): React.ReactElement {
@@ -21,4 +21,4 @@ function AppRouter(): React.ReactElement {
   return <App />;
 }
 
-export default withRouter(AppRouter);
+export default AppRouter;
