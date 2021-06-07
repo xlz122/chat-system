@@ -1,9 +1,12 @@
+import Home from '@views/Home';
+import CommonBody from '@views/commonBody/index';
+
 export type Routes = {
   path?: string;
   meta?: {
     exact?: boolean;
   };
-  component?: string;
+  component: string | React.ComponentType;
   children?: Children[];
   [index: string]: any;
 };
@@ -16,62 +19,66 @@ export type Children = {
 };
 
 const routes: Routes[] = [
+  // 嵌套路由的component需为组件，而不是文件路径
   {
-    path: '/',
+    path: '/home',
     meta: {
       exact: true
     },
-    component: 'views/Home',
+    component: Home,
     children: [
       {
-        path: '/bar'
+        path: '/home/bar',
+        meta: {
+          exact: true
+        }
       },
       {
-        path: '/foo'
+        path: '/home/foo',
+        meta: {
+          exact: true
+        }
       }
     ]
   },
   {
     path: '/login',
+    meta: {
+      exact: true
+    },
     component: 'views/login/Login'
   },
   {
     path: '/404',
+    meta: {
+      exact: true
+    },
     component: 'views/not-found/NotFound'
   },
   {
     path: '/commonBody',
-    component: 'views/commonBody/index',
+    component: CommonBody,
     children: [
       {
-        path: '/message',
+        path: '/commonBody/message',
         meta: {
           exact: true
         }
       },
       {
-        path: '/more',
+        path: '/commonBody/more',
         meta: {
           exact: true
         }
       },
       {
-        path: '/friendList',
+        path: '/commonBody/friendList',
         meta: {
           exact: true
         }
       }
     ]
   }
-  // {
-  //   path: '/base',
-  //   children: [
-  //     {
-  //       path: '/base',
-  //       component: 'views/base/index'
-  //     }
-  //   ]
-  // }
 ];
 
 export { routes };

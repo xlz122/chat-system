@@ -6,7 +6,7 @@ function NotFound(): React.ReactElement {
   const history = useHistory();
 
   setTimeout(() => {
-    history.push('/');
+    history.push('/home');
   }, 3000);
   return <div className="not-found">未找到该页面，将在3秒后返回首页...</div>;
 }

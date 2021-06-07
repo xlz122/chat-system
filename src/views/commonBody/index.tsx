@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Route, useHistory } from 'react-router-dom';
+import { Route, useHistory, Switch, Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import messageBody from '../message/index';
@@ -161,11 +161,17 @@ function CommonBody(): React.ReactElement {
 
 const routeReder = () => {
   return (
-    <>
-      <Route path="/commonBody/message" component={messageBody} />
-      <Route path="/commonBody/friendList" component={friendListBody} />
-      <Route path="/commonBody/more" component={moreBody} />
-    </>
+    <Switch>
+      <Route path="/commonBody" exact={true} />
+      <Route path="/commonBody/message" exact={true} component={messageBody} />
+      <Route
+        path="/commonBody/friendList"
+        exact={true}
+        component={friendListBody}
+      />
+      <Route path="/commonBody/more" exact={true} component={moreBody} />
+      <Redirect from="*" to="/404" />
+    </Switch>
   );
 };
 export default CommonBody;
