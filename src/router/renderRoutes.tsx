@@ -8,8 +8,8 @@ import { Props } from '@/type/index';
  * @description renderRoutes 渲染路由
  * @param { Array } routes 路由列表
  */
-function renderRoutes(routes: Routes): Routes[] {
-  let routeList: Routes[] = [];
+function renderRoutes(routes: Routes[]): React.ReactElement[] {
+  let routeList: any[] = [];
 
   // routes不是数组直接返回
   if (Object.prototype.toString.call(routes) !== '[object Array]') {
@@ -27,16 +27,8 @@ function renderRoutes(routes: Routes): Routes[] {
  * @description 处理路由数据
  * @param { Array } routes 路由列表项
  */
-function handlerRoute(item: Routes) {
-  // 嵌套路由，component传递的并不是组件
-  if (
-    item.children &&
-    Object.prototype.toString.call(item.component) === '[object String]'
-  ) {
-    throw new Error('嵌套路由，component属性需为组件');
-  }
-
-  if (item.children) {
+function handlerRoute(item: Routes): React.ReactElement {
+  if (Object.prototype.toString.call(item.component) !== '[object String]') {
     return (
       <Route path={item.path} key={item.path}>
         <item.component />

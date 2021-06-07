@@ -7,15 +7,7 @@ export type Routes = {
     exact?: boolean;
   };
   component: string | React.ComponentType;
-  children?: Children[];
   [index: string]: any;
-};
-
-export type Children = {
-  path?: string;
-  meta?: {
-    exact?: boolean;
-  };
 };
 
 const routes: Routes[] = [
@@ -25,59 +17,19 @@ const routes: Routes[] = [
     meta: {
       exact: true
     },
-    component: Home,
-    children: [
-      {
-        path: '/home/bar',
-        meta: {
-          exact: true
-        }
-      },
-      {
-        path: '/home/foo',
-        meta: {
-          exact: true
-        }
-      }
-    ]
+    component: Home
   },
   {
     path: '/login',
-    meta: {
-      exact: true
-    },
     component: 'views/login/Login'
   },
   {
     path: '/404',
-    meta: {
-      exact: true
-    },
     component: 'views/not-found/NotFound'
   },
   {
     path: '/commonBody',
-    component: CommonBody,
-    children: [
-      {
-        path: '/commonBody/message',
-        meta: {
-          exact: true
-        }
-      },
-      {
-        path: '/commonBody/more',
-        meta: {
-          exact: true
-        }
-      },
-      {
-        path: '/commonBody/friendList',
-        meta: {
-          exact: true
-        }
-      }
-    ]
+    component: CommonBody
   }
 ];
 

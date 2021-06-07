@@ -1,7 +1,5 @@
-/* eslint-disable */
-// @ts-nocheck
 import React from 'react';
-import { Switch,Route, Redirect } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import renderRoutes from '@router/renderRoutes';
 // 路由数据
 import { routes } from '@router/routes';
@@ -12,9 +10,7 @@ import { Props } from '@/type/index';
 function App(): React.ReactElement {
   return (
     <Switch>
-      {
-        renderRoutes(routes)
-      }
+      {renderRoutes(routes)}
       <Route component={RedirectAs404} />
     </Switch>
   );
@@ -22,10 +18,10 @@ function App(): React.ReactElement {
 
 // 重定向以及404
 const RedirectAs404 = ({ location }: Props) => {
-  if (location.pathname === '/') {
-    return <Redirect exact to="/home" from="/" />
+  if (location?.pathname === '/') {
+    return <Redirect exact to="/home" from="/" />;
   }
-  return <NotFound />
+  return <NotFound />;
 };
 
 export default App;
